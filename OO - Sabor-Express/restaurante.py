@@ -15,9 +15,9 @@ class Restaurante:
         - Argumentos
         '''
     
-        self.nome = nome
-        self.categoria = categoria
-        self.ativo = False
+        self._nome = nome.title()
+        self._categoria = categoria.upper()
+        self._ativo = False
         Restaurante.restaurantes.append(self)
 
     def __str__(self):
@@ -38,8 +38,13 @@ class Restaurante:
     def listar_restaurantes():
         #Método criado
         '''Quando chamado, o método vai listar automaticamente todos os objetos na lista restaurantes'''
+        print(f'{'Nome do restaurante'.ljust(25)} | {'Categoria'.ljust(25)} | Status')
         for restaurante in Restaurante.restaurantes:
-            print(f'{restaurante.nome} | {restaurante.categoria} | {restaurante.ativo}')
+            print(f'{restaurante._nome.ljust(25)} | {restaurante._categoria.ljust(25)} | {restaurante._ativo}')
+
+    @property
+    def ativo(self):
+        return '✅' if self._ativo else '❎'
 
 
 restaurante_praca = Restaurante('Praça', 'Gourmet')
