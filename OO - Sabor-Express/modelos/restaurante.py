@@ -2,7 +2,7 @@ from modelos.avaliacao import Avaliacao
 '''Importa a classe Avaliacao do arquivo avaliacao. Essa classe vai interagir com a classe Restaurante'''
 
 class Restaurante:
-
+    """Representa um restaurante e suas características."""
     restaurantes = []
 
     def __init__(self, nome, categoria):
@@ -78,7 +78,8 @@ class Restaurante:
 
     def receber_avaliacao(self, cliente, nota):
         '''Adiciona as avaliações de clientes, incluindo o nome do cliente e nota, a uma lista ligada ao objeto.
-        
+        As notas devem estar entre 0 e 5 (incluindo 5). ou não serão levadas em conta.
+
         Input:
         -cliente (str) (Importado)
         -nota (int) (Importado)
@@ -86,8 +87,9 @@ class Restaurante:
         Output:
         -Adiciona à lista individual do restaurante a avaliação.
         '''
-        avaliacao = Avaliacao(cliente, nota)
-        self._avaliacao.append(avaliacao)
+        if 0 < nota <= 5:
+            avaliacao = Avaliacao(cliente, nota)
+            self._avaliacao.append(avaliacao)
 
     @property
     def media_avaliacoes(self):
@@ -103,7 +105,7 @@ class Restaurante:
 
         '''
         if not self._avaliacao:
-            return 0
+            return '-'
         soma_das_notas = sum(avaliacao._nota for avaliacao in self._avaliacao)
         quantidade_de_notas = len(self._avaliacao)
         media = round(soma_das_notas / quantidade_de_notas, 1)
